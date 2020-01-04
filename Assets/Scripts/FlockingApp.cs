@@ -1,38 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Lean.Touch;
+//using Lean.Touch;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FlockingApp : MonoBehaviour
 {
-    private Vector2 resolution; // Current Resolution
     private Transform cameraTransform;
     private Vector3 cameraPosition;
     public Text statusText;
     private DeviceOrientation lastOrientation;
-    private CloudFine.FlockBox flockBox;
-    //private CloudFine.BehaviorSettings flockBehavior;
-    public Button modeSwitch;
     private bool isPortraitMode;
-    private Vector2 fingerDelta;
+    //private Vector2 fingerDelta;
+    public Slider separationWeightSlider; // used to set FlockBox Separation Behavior
 
-    public float containmentBehaviorWeight;
+    private CloudFine.FlockBox flockBox;
+
+    //TODO: How do I access (and change) FlockBox Behavior values?
+    //public float containmentBehaviorWeight;
     //public CloudFine.AlignmentBehavior alignmentBehavior;
     //public CloudFine.CohesionBehavior cohesionBehavior;
-    //public CloudFine.SeparationBehavior separationBehavior;
+    public CloudFine.SeparationBehavior separationBehavior; // does not seem to work!
 
     void Start()
     {
-        //DeviceChange.OnOrientationChange += MyOrientationChangeCode; // detect screen rotation
         flockBox = GetComponent<CloudFine.FlockBox>();
         cameraTransform = FindObjectOfType<Camera>().GetComponent<Transform>();
+        //separationWeightSlider = GetComponent<Slider>();
+        separationWeightSlider.GetComponent<Slider>().onValueChanged.AddListener(delegate { SliderChanged(); });
+
         lastOrientation = Input.deviceOrientation;
         statusText.text = "";
-        modeSwitch.GetComponent<Button>().onClick.AddListener(ChangeOrientation);
         isPortraitMode = true;
-        LeanTouch.OnGesture += HandleGesture;
-
+        //LeanTouch.OnGesture += HandleGesture;
     }
 
     private void Update()
@@ -41,29 +41,36 @@ public class FlockingApp : MonoBehaviour
         ChangeOrientation();
     }
 
-    private void HandleGesture(List<LeanFinger> fingers)
+    public void SliderChanged() // TODO: Make FlockBox Behaviors change here!
     {
-        //Debug.Log("screen delta: " + LeanGesture.GetScreenDelta(fingers));
-        fingerDelta = LeanGesture.GetScreenDelta(fingers);
-        if (fingerDelta.x > 0.0 || fingerDelta.x < 0.0)
-        {
-            statusText.text = "x: " + fingerDelta.x;
-            containmentBehaviorWeight = 2.0f;
-            //alignmentBehavior.weight = 0.0f;
-            //cohesionBehavior.weight = 0.0f;
-            //separationBehavior.weight = 0.0f;
-        }
-        if (fingerDelta.y > 0.0 || fingerDelta.y < 0.0)
-        {
-            statusText.text = "y: " + fingerDelta.y;
-            containmentBehaviorWeight = 3.0f;
-            //alignmentBehavior.weight = 3.0f;
-            //cohesionBehavior.weight = 3.0f;
-            //separationBehavior.weight = 3.0f;
-
-        }
+        statusText.text = "Separation: " + separationWeightSlider.value.ToString();
+        separationBehavior.weight = separationWeightSlider.value; //ERROR: not set to an instance of an object?
 
     }
+
+    // TODO: Replace sliders with LeanTouch finger gestures (swipes to change Flock Behavior values)
+    //private void HandleGesture(List<LeanFinger> fingers)
+    //{
+    //    //Debug.Log("screen delta: " + LeanGesture.GetScreenDelta(fingers));
+    //    fingerDelta = LeanGesture.GetScreenDelta(fingers);
+    //    if (fingerDelta.x > 0.0 || fingerDelta.x < 0.0)
+    //    {
+    //        statusText.text = "x: " + fingerDelta.x;
+    //        containmentBehaviorWeight = 2.0f;
+    //        alignmentBehavior.weight = 0.0f;
+    //        cohesionBehavior.weight = 0.0f;
+    //        separationBehavior.weight = 0.0f;
+    //    }
+    //    if (fingerDelta.y > 0.0 || fingerDelta.y < 0.0)
+    //    {
+    //        statusText.text = "y: " + fingerDelta.y;
+    //        containmentBehaviorWeight = 3.0f;
+    //        alignmentBehavior.weight = 3.0f;
+    //        cohesionBehavior.weight = 3.0f;
+    //        separationBehavior.weight = 3.0f;
+
+    //    }
+    //}
 
     private void ChangeOrientation()
     {
@@ -97,7 +104,7 @@ public class FlockingApp : MonoBehaviour
         if (!paused)
         {
             // Application came back to the fore; double-check authentication
-            statusText.text = "Just opened app at " + System.DateTime.Now;
+            statusText.text = "Just opened app at " + System.DateTime.Now; //TODO: Testing this for Photo Reviewer app
         }
     }
 } // class
