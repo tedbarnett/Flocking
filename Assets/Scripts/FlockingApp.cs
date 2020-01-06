@@ -19,6 +19,8 @@ public class FlockingApp : MonoBehaviour
     public GameObject companyLogo;
     public GameObject behaviorPanels;
     private bool firstFrame = true;
+    public float flockBoxLength = 21.0f;
+    public float cameraBaseZ = 200.0f;
 
     private CloudFine.FlockBox flockBox;
     public CloudFine.BehaviorSettings boidSettings;
@@ -51,6 +53,9 @@ public class FlockingApp : MonoBehaviour
         if (firstFrame)
         {
             UpdateBirds(Mathf.RoundToInt(birdCountSlider.value)); // set bird count to current position of birdCountSlider
+            statusText.text = "screenX: " + Screen.width + ", screenY: " + Screen.height;
+            statusText.text = statusText.text + "\n" + "boxX: " + flockBox.dimensions_x + ", screenY: " + flockBox.dimensions_y;
+
             firstFrame = false;
         }
         if (lastOrientation == Input.deviceOrientation) return;
@@ -101,6 +106,7 @@ public class FlockingApp : MonoBehaviour
     private void ChangeOrientation()
     {
         isPortraitMode = !isPortraitMode;
+        float cameraZ = 0;
 
         RectTransform birdCountRectTransform = birdCountSlider.GetComponent<RectTransform>();
 
@@ -109,25 +115,32 @@ public class FlockingApp : MonoBehaviour
         if (!isPortraitMode || Input.deviceOrientation == DeviceOrientation.LandscapeLeft || Input.deviceOrientation == DeviceOrientation.LandscapeRight)
         {
             // Device is in landscape mode
-            cameraPosition = new Vector3(94.0f, 58.0f, -102f);
-            cameraTransform.position = cameraPosition;
-            flockBox.dimensions_x = 21;
-            flockBox.dimensions_y = 10;
-            flockBox.dimensions_z = 8;
-            companyLogo.transform.gameObject.SetActive(false); // hide logo in landscape mode (too crowded)
+            //cameraPosition = new Vector3(94.0f, 58.0f, -102f);
+            //cameraTransform.position = cameraPosition;
+            flockBox.dimensions_x = Mathf.RoundToInt(flockBoxLength);
+            flockBox.dimensions_y = Mathf.RoundToInt(flockBoxLength * ((float)Screen.height/(float)Screen.width));
+            cameraZ = -cameraBaseZ * ((float)Screen.height / (float)Screen.width);
 
+            //companyLogo.transform.gameObject.SetActive(false); // hide logo in landscape mode (too crowded)
         }
         else
         {
             // Device is in portrait mode
-            cameraPosition = new Vector3(55.0f, 112.0f, -202.0f);
-            cameraTransform.position = cameraPosition;
-            flockBox.dimensions_x = 10;
-            flockBox.dimensions_y = 21;
-            flockBox.dimensions_z = 8;
-            companyLogo.transform.gameObject.SetActive(true); // hide logo in landscape mode (too crowded)
+            //cameraPosition = new Vector3(55.0f, 112.0f, -202.0f);
+            //cameraTransform.position = cameraPosition;
+            flockBox.dimensions_x = Mathf.RoundToInt(flockBoxLength * ((float)Screen.width / (float)Screen.height));
+            flockBox.dimensions_y = Mathf.RoundToInt(flockBoxLength);
+            cameraZ = -cameraBaseZ;
+
+            //companyLogo.transform.gameObject.SetActive(true); // hide logo in landscape mode (too crowded)
 
         }
+        statusText.text = "screenX: " + Screen.width + ", screenY: " + Screen.height;
+        statusText.text = statusText.text + "\n" + "boxX: " + flockBox.dimensions_x + ", screenY: " + flockBox.dimensions_y;
+
+        cameraPosition = new Vector3((flockBox.dimensions_x * flockBox.cellSize)/2, (flockBox.dimensions_y * flockBox.cellSize) / 2, cameraZ);
+        cameraTransform.position = cameraPosition;
+
 
         lastOrientation = Input.deviceOrientation;
     }
@@ -151,7 +164,6 @@ public class FlockingApp : MonoBehaviour
             i++;
         }
     }
-
 
 
 } // class

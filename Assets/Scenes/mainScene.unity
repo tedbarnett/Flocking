@@ -215,7 +215,7 @@ RectTransform:
   - {fileID: 1736117233}
   - {fileID: 349527990}
   m_Father: {fileID: 1332413335}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -547,6 +547,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 564137590}
+  - {fileID: 2059162378}
   - {fileID: 584844586}
   - {fileID: 500251510}
   - {fileID: 1332413335}
@@ -704,7 +705,7 @@ RectTransform:
   - {fileID: 2087142496}
   - {fileID: 461047629}
   m_Father: {fileID: 1332413335}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -946,7 +947,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 340556667}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1159,7 +1160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &564137590
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1243,7 +1244,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 340556667}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1899,7 +1900,7 @@ RectTransform:
   - {fileID: 1582285105}
   - {fileID: 239272898}
   m_Father: {fileID: 1332413335}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -2128,6 +2129,7 @@ MonoBehaviour:
   separationWeightSlider: {fileID: 885491900}
   companyLogo: {fileID: 564137589}
   behaviorPanels: {fileID: 1332413332}
+  flockBoxLength: 21
   boidSettings: {fileID: 11400000, guid: d722f7d8c31554a248cdfdbc273167a9, type: 2}
   maxBirds: 500
 --- !u!114 &1006105874
@@ -2189,7 +2191,7 @@ RectTransform:
   - {fileID: 173931479}
   - {fileID: 552855826}
   m_Father: {fileID: 1332413335}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -2587,14 +2589,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2059162378}
   - {fileID: 363319853}
   - {fileID: 1012049337}
   - {fileID: 1600420764}
   - {fileID: 90364083}
   - {fileID: 885491899}
   m_Father: {fileID: 340556667}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2804,7 +2805,7 @@ RectTransform:
   - {fileID: 256724624}
   - {fileID: 684241156}
   m_Father: {fileID: 1332413335}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -3321,7 +3322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2059162378
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3333,14 +3334,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1332413335}
-  m_RootOrder: 0
+  m_Father: {fileID: 340556667}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 181}
-  m_SizeDelta: {x: 400, y: 70}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -65, y: -137}
+  m_SizeDelta: {x: 988, y: 236.3}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &2059162379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3354,19 +3355,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.05900677, g: 0.14580315, b: 0.735849, a: 1}
+  m_Color: {r: 0.05900677, g: 0.14580315, b: 0.735849, a: 0.48235294}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 60
+    m_FontSize: 50
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 6
+    m_MinSize: 5
     m_MaxSize: 60
-    m_Alignment: 0
+    m_Alignment: 2
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
