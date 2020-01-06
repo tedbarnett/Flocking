@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+// this app relies on the Unity Asset "FlockBox" (https://assetstore.unity.com/packages/tools/ai/flock-box-155028)
+
 public class FlockingApp : MonoBehaviour
 {
     public Slider birdCountSlider;
@@ -101,17 +103,13 @@ public class FlockingApp : MonoBehaviour
 
     private void ChangeOrientation()
     {
-        isPortraitMode = (Screen.width < Screen.height);
+        isPortraitMode = (Screen.width < Screen.height); // used actual screen dimensions to enable desktop app to work
 
         float cameraFOV = Camera.main.fieldOfView;
         float cameraFOVRadians = cameraFOV * Mathf.Deg2Rad;
-        float triangleTangent = Mathf.Tan(cameraFOVRadians/2.0f);  // e.g. 60 degree camera angle implies z = (height/2)/(tan(30))
+        float triangleTangent = Mathf.Tan(cameraFOVRadians/2.0f);
         float cellSize = (float)flockBox.cellSize;
         float fudge = 1.10f; // tweak the camera position out 10% further than computed
-
-        RectTransform birdCountRectTransform = birdCountSlider.GetComponent<RectTransform>();
-
-        // TODO: Replace the hard-wired dimensions (and cam position) below with a formula based on current screen resolution
 
         if (!isPortraitMode)
         {
@@ -127,7 +125,7 @@ public class FlockingApp : MonoBehaviour
         }
         flockBox.dimensions_x = Mathf.RoundToInt(newWidth);
         flockBox.dimensions_y = Mathf.RoundToInt(newHeight);
-        cameraZ = -(fudge) * ((newHeight * cellSize) / 2.0f) / triangleTangent; // 60 degree camera angle implies z = (height/2)/(tan(30))
+        cameraZ = -(fudge) * ((newHeight * cellSize) / 2.0f) / triangleTangent; // e.g. 60 degree camera angle implies z = (height/2)/(tan(30))
 
         statusText.text = "screenX: " + Screen.width + ", screenY: " + Screen.height;
         statusText.text = statusText.text + "\n" + "boxX: " + flockBox.dimensions_x + ", screenY: " + flockBox.dimensions_y;
@@ -153,7 +151,8 @@ public class FlockingApp : MonoBehaviour
                 if (i < birdCount)
                 {
                     child.transform.gameObject.SetActive(true); // show all birds up to "birdCount"
-                } else
+                }
+                else
                 {
                     child.transform.gameObject.SetActive(false); // hide all birds after "birdCount" is reached
                 }
@@ -161,6 +160,5 @@ public class FlockingApp : MonoBehaviour
             i++;
         }
     }
-
 
 } // class
